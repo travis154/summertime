@@ -18,10 +18,29 @@
         <script src="js/vendor/jquery.min.js"></script>
         <script src="js/moment.min.js"></script>
         <script>
+        	var t;
         	$(function(){
+        		
         		setInterval(function(){
-        			$("#time").html(moment().format("h:mm:ss a"));
+        			if(typeof t == 'undefined'){
+        				$("#time").html(moment().format("h:mm:ss a"));
+        				$("#date").html(moment().format("MMMM Do YYYY"));
+        			}else{
+        				$("#time").html(moment(t).format("h:mm:ss a"));
+        				$("#date").html(moment(t).format("MMMM Do YYYY"));
+        			}
         		}, 1000);
+        		$("#input").on('keyup', function(){
+        			var time = $(this).val();
+        			if(time == '' || !time){
+        				t = void 0;
+        				return;
+        			}
+        			var time = time.split(".");
+        			var h = time[0];
+        			var m = time.length == 1 ? "0" : time[1];
+        			t = moment().add('hours', h).add('minutes', m);
+        		});
         	});
         </script>
         <script src="js/main.js"></script>
@@ -31,9 +50,10 @@
 
         <div class="main-container">
             <div class="main wrapper clearfix">
+            	<h3 style='color:#d0d0d0; font-family:"Paprika", sans-serif; text-align:center;' id='date'></h3>
             	<h1 style='font-size:2.8em; font-family:"Paprika", sans-serif; text-align:center;' id='time'></h1>
 
-                    <input  type='number' placeholder='Enter time, ex: 2.30, -0.25...' style='border:solid 1px #c0c0c0; width: 100%;padding: 0.3em;font-size: 1.5em;box-sizing: border-box;'/>
+                    <input id='input'  type='number' placeholder='Enter time, ex: 2.30, -0.25...' style='border:solid 1px #c0c0c0; width: 100%;padding: 0.3em;font-size: 1.5em;box-sizing: border-box;'/>
 
             </div> <!-- #main -->
         </div> <!-- #main-container -->
