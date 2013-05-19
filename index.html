@@ -29,7 +29,7 @@
         				$("#time").html(moment(t).format("h:mm:ss a"));
         				$("#date").html(moment(t).format("MMMM Do YYYY"));
         			}
-        		}, 1000);
+        		}, 10);
         		$("#input").on('keyup', function(){
         			var time = $(this).val();
         			if(time == '' || !time){
